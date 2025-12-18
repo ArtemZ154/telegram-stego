@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  builder:
+    build: .
+    volumes:
+      # Монтируем локальную папку build/extension, чтобы получить собранные файлы обратно на хост
+      - ./build/extension:/app/build/extension
+    # Команда, которая выполнится при запуске (можно переопределить)
+    command: sh -c "echo 'Building WASM...' && GOOS=js GOARCH=wasm go build -o build/extension/stego.wasm ./cmd/stego_wasm && cp /usr/local/go/misc/wasm/wasm_exec.js build/extension/wasm_exec.js && echo 'Done!'"

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Telegram Stego WASM",
+  "version": "0.2.0",
+  "description": "Скрытие/извлечение сообщений в аудио на web.telegram.org с помощью стеганографии на Go WASM.",
+  "host_permissions": [
+    "https://web.telegram.org/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://web.telegram.org/*"],
+      "js": ["wasm_exec.js", "content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["stego.wasm", "wasm_exec.js", "page-hook.js"],
+      "matches": ["https://web.telegram.org/*"]
+    }
+  ]
+}
